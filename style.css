@@ -808,3 +808,35 @@ body[dir="ltr"] .hero-meta li + li::before {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* الوضع الفاتح (Light Mode) */
+body.light-mode {
+    background-color: #bbf7f1 !important;
+    color: #590018 !important;
+}
+
+body.light-mode header,
+body.light-mode nav,
+body.light-mode .card,
+body.light-mode section {
+    background-color: #bbf7f1 !important;
+    color: #0f172a !important;
+    border-color: #0e57b8 !important;
+}
+
+body.light-mode p, 
+body.light-mode span, 
+body.light-mode h1, 
+body.light-mode h2, 
+body.light-mode h3, 
+body.light-mode a {
+    color: #4c7dee !important;
+}
+
+/* إخفاء واظهار الأيقونات حسب الثيم */
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+
+body.light-mode .sun-icon { display: block; }
+body.light-mode .moon-icon { display: none; }

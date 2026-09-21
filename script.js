@@ -213,3 +213,24 @@ const revealObserver = new IntersectionObserver(
 revealItems.forEach((item) => revealObserver.observe(item));
 
 setLanguage('ar');
+
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+// التحقق من الثيم المخزن مسبقاً
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+    document.body.classList.add('light-mode');
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', function () {
+        document.body.classList.toggle('light-mode');
+        
+        let theme = 'dark';
+        if (document.body.classList.contains('light-mode')) {
+            theme = 'light';
+        }
+        localStorage.setItem('theme', theme);
+    });
+}
+
