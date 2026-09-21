@@ -851,7 +851,7 @@ body.light-mode .moon-icon { display: none; }
         opacity: 1 !important;
     }
 
-    /* تصغير المسافات بين العناصر باش تدخل بلا دريعة في الهيدر ديال التلفون */
+    /* تصغير المسافات بين العناصر */
     .site-header .container {
         flex-wrap: wrap;
         justify-content: center;
