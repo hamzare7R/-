@@ -840,3 +840,21 @@ body.light-mode a {
 
 body.light-mode .sun-icon { display: block; }
 body.light-mode .moon-icon { display: none; }
+
+/* إظهار القائمة وأيقونة الثيم حتى على الهواتف والشاشات الصغيرة */
+@media screen and (max-width: 768px) {
+    .site-header nav,
+    .main-nav,
+    .theme-toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* تصغير المسافات بين العناصر باش تدخل بلا دريعة في الهيدر ديال التلفون */
+    .site-header .container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+}
