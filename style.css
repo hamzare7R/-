@@ -812,7 +812,7 @@ body[dir="ltr"] .hero-meta li + li::before {
 
 /* الوضع الفاتح (Light Mode) */
 body.light-mode {
-    background-color: #bbf7f1 !important;
+    background-color: #f8fafa !important;
     color: #590018 !important;
 }
 
@@ -820,7 +820,7 @@ body.light-mode header,
 body.light-mode nav,
 body.light-mode .card,
 body.light-mode section {
-    background-color: #bbf7f1 !important;
+    background-color: #f3f3f3 !important;
     color: #0f172a !important;
     border-color: #0e57b8 !important;
 }
