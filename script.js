@@ -44,7 +44,59 @@ const translations = {
     "nav.services": "الخدمات",
     "nav.portfolio": "أعمالي",
     "nav.skills": "مهاراتي",
-    "nav.contact": "تواصل"
+    "nav.contact": "تواصل",
+    "contact.sent": "تم الإرسال",
+    "contact.namePlaceholder": "أدخل اسمك",
+    "contact.messagePlaceholder": "اكتب رسالتك..."
+  },
+  en: {
+    "hero.eyebrow": "Graphic Designer & Digital Content Creator",
+    "hero.title": "Hamza - Graphic Designer & Digital Content Creator",
+    "hero.text": "I combine the precision of port and trade operations at Tanger Med with creativity in brand identity, digital marketing, and visual content, to create professional visual experiences that make an impact and build brand trust.",
+    "hero.primaryBtn": "View my work",
+    "hero.secondaryBtn": "Contact me",
+    "hero.meta1": "Hands-on port experience",
+    "hero.meta2": "Freelance designer & digital creator",
+    "hero.meta3": "Multilingual",
+    "hero.role": "Graphic Designer & Digital Creator",
+    "hero.statYears": "Years of experience",
+    "hero.statProjects": "Projects",
+    "about.eyebrow": "About me",
+    "about.title": "A designer who balances field operations with digital creativity.",
+    "about.paragraph1": "I'm Hamza R., a freelance graphic designer and digital content creator. I combine a practical method with an artistic touch in every project. My experience in port environments such as Tanger Med and Eurogate gave me strong organization, precision, and the ability to work under pressure, while my passion for design and marketing helps me create clear and attractive visual identities.",
+    "about.paragraph2": "I also have a technical background in aluminum craftsmanship, which shaped how I see physical and functional elements and how I apply them to interfaces and interactive designs. I keep learning German and updating my skills in design and visual identity to match today's market.",
+    "services.eyebrow": "Services",
+    "services.title": "Complete design solutions for every stage of your brand.",
+    "services.card1.title": "Brand Identity & Logo Design",
+    "services.card1.text": "Complete visual identities, logos, visual patterns, and professional applications through 3D mockups.",
+    "services.card2.title": "Interface & Landing Page Design",
+    "services.card2.text": "Modern interface design, effective landing pages, and a user experience that balances beauty and clarity.",
+    "services.card3.title": "Social Media Ads",
+    "services.card3.text": "Posts, stories, ads, and ready-to-publish content for digital platforms.",
+    "services.card4.title": "CV Writing & Marketing Content",
+    "services.card4.text": "Professional CV writing, marketing content, and visual messages focused on distinction and clarity.",
+    "portfolio.eyebrow": "Portfolio",
+    "portfolio.title": "Latest projects and achievements.",
+    "skills.eyebrow": "Skills & tools",
+    "skills.title": "Design, operations, and language at the service of projects.",
+    "skills.text": "I create practical visual solutions that strengthen identity and user experience, balancing artistic skill with hands-on understanding of different operational environments.",
+    "skills.designTools": "Design tools",
+    "skills.fieldSkills": "Field & technical skills",
+    "contact.eyebrow": "Contact",
+    "contact.title": "Let's build something special together.",
+    "contact.text": "If you need a brand identity, social media designs, or a clean and clear landing page, I can help you turn your idea into a strong visual experience.",
+    "contact.name": "Name",
+    "contact.email": "Email",
+    "contact.message": "Message",
+    "contact.submit": "Send",
+    "contact.sent": "Sent",
+    "contact.namePlaceholder": "Enter your name",
+    "contact.messagePlaceholder": "Write your message...",
+    "nav.about": "About",
+    "nav.services": "Services",
+    "nav.portfolio": "Portfolio",
+    "nav.skills": "Skills",
+    "nav.contact": "Contact"
   },
   de: {
     "hero.eyebrow": "Grafikdesigner & Digital Content Creator",
@@ -90,12 +142,15 @@ const translations = {
     "nav.services": "Leistungen",
     "nav.portfolio": "Projekte",
     "nav.skills": "Fähigkeiten",
-    "nav.contact": "Kontakt"
+    "nav.contact": "Kontakt",
+    "contact.sent": "Gesendet",
+    "contact.namePlaceholder": "Namen eingeben",
+    "contact.messagePlaceholder": "Nachricht schreiben..."
   }
 };
 
 const body = document.body;
-const langSwitchBtn = document.querySelector('.lang-switch');
+const langButtons = document.querySelectorAll('.lang-btn');
 const elements = document.querySelectorAll('[data-i18n]');
 const navLinks = document.querySelectorAll('.main-nav a');
 const filterButtons = document.querySelectorAll('.filter-btn');
@@ -105,48 +160,65 @@ const lightboxImg = document.getElementById('lightboxImg');
 const closeLightbox = document.querySelector('.close-lightbox');
 const contactForm = document.getElementById('contactForm');
 
+const SUPPORTED_LANGS = ['ar', 'en', 'de'];
 let currentLang = 'ar';
 
+function getInitialLanguage() {
+  const fromUrl = new URLSearchParams(window.location.search).get('lang');
+  if (SUPPORTED_LANGS.includes(fromUrl)) return fromUrl;
+  try {
+    const saved = localStorage.getItem('lang');
+    if (SUPPORTED_LANGS.includes(saved)) return saved;
+  } catch (e) {}
+  return 'ar';
+}
+
 function setLanguage(lang) {
+  if (!SUPPORTED_LANGS.includes(lang)) return;
   currentLang = lang;
   document.documentElement.lang = lang;
   body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
-  if (lang === 'ar') {
-    navLinks[0].textContent = 'عنّي';
-    navLinks[1].textContent = 'الخدمات';
-    navLinks[2].textContent = 'أعمالي';
-    navLinks[3].textContent = 'مهاراتي';
-    navLinks[4].textContent = 'تواصل';
-  } else {
-    navLinks[0].textContent = 'Über mich';
-    navLinks[1].textContent = 'Leistungen';
-    navLinks[2].textContent = 'Projekte';
-    navLinks[3].textContent = 'Fähigkeiten';
-    navLinks[4].textContent = 'Kontakt';
-  }
+  try {
+    localStorage.setItem('lang', lang);
+  } catch (e) {}
+
+  const t = translations[lang];
+
+  const navKeys = ['nav.about', 'nav.services', 'nav.portfolio', 'nav.skills', 'nav.contact'];
+  navLinks.forEach((link, i) => {
+    if (navKeys[i]) link.textContent = t[navKeys[i]];
+  });
+
+  const footerLinks = document.querySelectorAll('.footer-links a');
+  const footerKeys = ['nav.about', 'nav.portfolio', 'nav.contact'];
+  footerLinks.forEach((link, i) => {
+    if (footerKeys[i]) link.textContent = t[footerKeys[i]];
+  });
 
   elements.forEach((el) => {
     const key = el.dataset.i18n;
-    if (translations[lang][key]) {
-      el.textContent = translations[lang][key];
+    if (t[key]) {
+      el.textContent = t[key];
     }
   });
 
-  const labels = document.querySelectorAll('label');
-  labels.forEach((label) => {
-    const key = label.getAttribute('data-i18n');
-    if (key && translations[lang][key]) {
-      label.textContent = translations[lang][key];
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key]) {
+      el.setAttribute('placeholder', t[key]);
     }
   });
 
-  document.querySelector('.brand-text').textContent = lang === 'ar' ? 'Reggaoui Hamza' : 'Reggaoui Hamza';
+  langButtons.forEach((btn) => {
+    const active = btn.dataset.lang === lang;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
 }
 
-langSwitchBtn.addEventListener('click', () => {
-  const nextLang = currentLang === 'ar' ? 'de' : 'ar';
-  setLanguage(nextLang);
+langButtons.forEach((btn) => {
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
 });
 
 filterButtons.forEach((button) => {
@@ -186,12 +258,11 @@ lightbox.addEventListener('click', (event) => {
 contactForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const submitButton = contactForm.querySelector('button[type="submit"]');
-  const originalText = submitButton.textContent;
-  submitButton.textContent = currentLang === 'ar' ? 'تم الإرسال' : 'Gesendet';
+  submitButton.textContent = translations[currentLang]['contact.sent'];
   submitButton.disabled = true;
 
   setTimeout(() => {
-    submitButton.textContent = originalText;
+    submitButton.textContent = translations[currentLang]['contact.submit'];
     submitButton.disabled = false;
     contactForm.reset();
   }, 1800);
@@ -212,7 +283,7 @@ const revealObserver = new IntersectionObserver(
 
 revealItems.forEach((item) => revealObserver.observe(item));
 
-setLanguage('ar');
+setLanguage(getInitialLanguage());
 
 const themeToggleBtn = document.getElementById('theme-toggle');
 

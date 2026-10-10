@@ -858,3 +858,40 @@ body.light-mode .moon-icon { display: none; }
         gap: 10px;
     }
 }
+
+.service-icon {
+  color: #02baab; /* بدّل اللون هنا */
+}
+
+.service-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Language switcher: AR / EN / DE */
+.lang-switch {
+  cursor: default;
+}
+
+.lang-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 4px 2px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  color: var(--text);
+}
+
+.lang-btn.active {
+  color: #78e0ff;
+}

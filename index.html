@@ -40,11 +40,13 @@
 
           </nav>
 
-          <button class="lang-switch" type="button" aria-label="Language switcher">
-            <span class="lang-label">AR</span>
+          <div class="lang-switch" role="group" aria-label="Language switcher">
+            <button class="lang-btn active" type="button" data-lang="ar" aria-pressed="true">AR</button>
             <span class="switch-divider">/</span>
-            <span class="lang-label">DE</span>
-          </button>
+            <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+            <span class="switch-divider">/</span>
+            <button class="lang-btn" type="button" data-lang="de" aria-pressed="false">DE</button>
+          </div>
 
         
 
@@ -83,17 +85,7 @@
                   </div>
                 </div>
 
-                <div class="stats-grid">
-                  <div>
-                    <strong>5+</strong>
-                    <span data-i18n="hero.statYears">سنوات خبرة</span>
-                  </div>
-                  <div>
-                    <strong>40+</strong>
-                    <span data-i18n="hero.statProjects">مشاريع</span>
-                  </div>
-                </div>
-
+            
                 <div class="tool-tags">
                   <span>Adobe</span>
                   <span>Canva</span>
@@ -158,9 +150,11 @@
                 <div class="service-icon">▣</div>
                 <h3 data-i18n="services.card2.title">تصميم واجهات وصفحات الهبوط</h3>
                 <p data-i18n="services.card2.text">
-                  تصميم واجهات حديثة، تنسيق صفحات هبوط فعالة، وتجربة مستخدم متوازنة بين الجمال والوضوح.
+              بإستخدام أحدث لغات البرمجة تصميم واجهات حديثة، تنسيق صفحات هبوط فعالة، وتجربة مستخدم متوازنة بين الجمال والوضوح 
                 </p>
               </article>
+
+            
 
               <article class="service-card reveal">
                 <div class="service-icon">✦</div>
@@ -307,7 +301,7 @@
             <form action="https://formspree.io/f/xdekeadr" method="POST" class="contact-form reveal" id="contactForm">
               <div class="field">
                 <label for="name" data-i18n="contact.name">الاسم</label>
-                <input id="name" name="name" type="text" placeholder="أدخل اسمك" required />
+                <input id="name" name="name" type="text" placeholder="أدخل اسمك" data-i18n-placeholder="contact.namePlaceholder" required />
               </div>
 
               <div class="field">
@@ -317,7 +311,7 @@
 
               <div class="field">
                 <label for="message" data-i18n="contact.message">الرسالة</label>
-                <textarea id="message" name="message" rows="5" placeholder="اكتب رسالتك..." required></textarea>
+                <textarea id="message" name="message" rows="5" placeholder="اكتب رسالتك..." data-i18n-placeholder="contact.messagePlaceholder" required></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary" data-i18n="contact.submit">إرسال</button>
@@ -339,7 +333,7 @@
     </div>
 
     <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button class="close-lightbox" type="button" aria-label="Close gallery">×</button>
+      <button class="close-lightbox" type="button" aria-label="Close gallery"></button>
       <img src="" alt="Project preview" id="lightboxImg" />
     </div>
 
