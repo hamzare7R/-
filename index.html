@@ -85,7 +85,17 @@
                   </div>
                 </div>
 
-            
+                <div class="stats-grid">
+                  <div>
+                    <strong>5+</strong>
+                    <span data-i18n="hero.statYears">سنوات خبرة</span>
+                  </div>
+                  <div>
+                    <strong>40+</strong>
+                    <span data-i18n="hero.statProjects">مشاريع</span>
+                  </div>
+                </div>
+
                 <div class="tool-tags">
                   <span>Adobe</span>
                   <span>Canva</span>
@@ -314,7 +324,10 @@
                 <textarea id="message" name="message" rows="5" placeholder="اكتب رسالتك..." data-i18n-placeholder="contact.messagePlaceholder" required></textarea>
               </div>
 
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+
               <button type="submit" class="btn btn-primary" data-i18n="contact.submit">إرسال</button>
+              <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
             </form>
           </div>
         </section>

@@ -47,7 +47,10 @@ const translations = {
     "nav.contact": "تواصل",
     "contact.sent": "تم الإرسال",
     "contact.namePlaceholder": "أدخل اسمك",
-    "contact.messagePlaceholder": "اكتب رسالتك..."
+    "contact.messagePlaceholder": "اكتب رسالتك...",
+    "contact.sending": "جارٍ الإرسال...",
+    "contact.success": "تم إرسال رسالتك بنجاح. سأرد عليك قريبًا.",
+    "contact.error": "تعذّر إرسال الرسالة. حاول مرة أخرى أو راسلني عبر البريد الإلكتروني."
   },
   en: {
     "hero.eyebrow": "Graphic Designer & Digital Content Creator",
@@ -92,6 +95,9 @@ const translations = {
     "contact.sent": "Sent",
     "contact.namePlaceholder": "Enter your name",
     "contact.messagePlaceholder": "Write your message...",
+    "contact.sending": "Sending...",
+    "contact.success": "Your message was sent. I'll reply soon.",
+    "contact.error": "Your message could not be sent. Please try again or email me directly.",
     "nav.about": "About",
     "nav.services": "Services",
     "nav.portfolio": "Portfolio",
@@ -145,7 +151,10 @@ const translations = {
     "nav.contact": "Kontakt",
     "contact.sent": "Gesendet",
     "contact.namePlaceholder": "Namen eingeben",
-    "contact.messagePlaceholder": "Nachricht schreiben..."
+    "contact.messagePlaceholder": "Nachricht schreiben...",
+    "contact.sending": "Wird gesendet...",
+    "contact.success": "Ihre Nachricht wurde gesendet. Ich melde mich bald.",
+    "contact.error": "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie mir per E-Mail."
   }
 };
 
@@ -159,8 +168,23 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const closeLightbox = document.querySelector('.close-lightbox');
 const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
 
 const SUPPORTED_LANGS = ['ar', 'en', 'de'];
+let formStatusKey = null;
+let formStatusIsError = false;
+
+function setFormStatus(key, isError = false) {
+  formStatusKey = key;
+  formStatusIsError = isError;
+  renderFormStatus();
+}
+
+function renderFormStatus() {
+  if (!formStatus) return;
+  formStatus.textContent = formStatusKey ? translations[currentLang][formStatusKey] : '';
+  formStatus.classList.toggle('error', Boolean(formStatusKey) && formStatusIsError);
+}
 let currentLang = 'ar';
 
 function getInitialLanguage() {
@@ -215,6 +239,8 @@ function setLanguage(lang) {
     btn.classList.toggle('active', active);
     btn.setAttribute('aria-pressed', active ? 'true' : 'false');
   });
+
+  renderFormStatus();
 }
 
 langButtons.forEach((btn) => {
@@ -255,17 +281,39 @@ lightbox.addEventListener('click', (event) => {
   }
 });
 
-contactForm.addEventListener('submit', (event) => {
+contactForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const submitButton = contactForm.querySelector('button[type="submit"]');
-  submitButton.textContent = translations[currentLang]['contact.sent'];
-  submitButton.disabled = true;
-
-  setTimeout(() => {
+  const resetLabel = () => {
     submitButton.textContent = translations[currentLang]['contact.submit'];
-    submitButton.disabled = false;
+  };
+
+  submitButton.disabled = true;
+  submitButton.textContent = translations[currentLang]['contact.sending'];
+  setFormStatus(null);
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { Accept: 'application/json' }
+    });
+
+    if (!response.ok) {
+      throw new Error('Form request failed: ' + response.status);
+    }
+
     contactForm.reset();
-  }, 1800);
+    submitButton.textContent = translations[currentLang]['contact.sent'];
+    setFormStatus('contact.success');
+    setTimeout(resetLabel, 2000);
+  } catch (error) {
+    console.error(error);
+    resetLabel();
+    setFormStatus('contact.error', true);
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 const revealItems = document.querySelectorAll('.reveal');
