@@ -1,6 +1,5 @@
 export default {
   async fetch(request, env) {
-    // التعامل مع طلبات CORS
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
@@ -21,7 +20,6 @@ export default {
     try {
       const body = await request.json();
       
-      // استخراج الرسائل أو أخذ آخر رسالة من المستخدم
       let userMessage = "";
       if (body.messages && Array.isArray(body.messages)) {
         userMessage = body.messages[body.messages.length - 1].content;
@@ -32,8 +30,9 @@ export default {
       }
 
       const apiKey = env.GEMINI_API_KEY;
-      // استخدام النموذج المستقر والرسمي gemini-1.5-flash
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      
+      // التعديل الرسمي كما طلبت Google في الخطأ: gemini-3.8-flash
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
 
       const geminiResponse = await fetch(url, {
         method: "POST",
@@ -62,7 +61,6 @@ export default {
       const data = await geminiResponse.json();
       const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أستطع فهم الطلب.";
 
-      // إرجاع الرد بنفس الشكل اللي كيتسنوه الـ Frontend ديالك
       return new Response(JSON.stringify({ reply: aiReply }), {
         headers: {
           "Content-Type": "application/json",
