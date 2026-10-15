@@ -5,13 +5,14 @@
 // 2) حط الـ URL ديالو فـ CHAT_ENDPOINT تحت
 // 3) فعّل هاد الملف فـ index.html (موجودين راه مربوطين)
 
-   const CHAT_ENDPOINT = "https://hamza-chat.hamzareggaoui63.workers.dev";
+// حط هنا رابط الـ Worker ديالك من Cloudflare، مثال: "https://hamza-chat.YOURNAME.workers.dev"
+const CHAT_ENDPOINT = "https://hamza-chat.hamzareggaoui63.workers.dev";
 
 const chatCopy = {
   ar: {
     trigger: "مساعد حمزة",
     title: "مساعد حمزة",
-    subtitle: "اسألني عن الخدمات.",
+    subtitle: "اسألني عن الخدمات، الأعمالي أو كيفاش تتواصل معايا.",
     inputLabel: "اكتب سؤالك",
     placeholder: "اكتب سؤالك هنا...",
     send: "إرسال",
@@ -259,21 +260,32 @@ async function requestReply() {
     return localAnswer(last ? last.content : "");
   }
 
-  const response = await fetch(CHAT_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      lang: lang(),
-      contacts: contactChannels().map(({ label, href }) => ({ label, href })),
-      messages: history.slice(-10),
-    }),
-  });
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
+    const response = await fetch(CHAT_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        lang: lang(),
+        contacts: contactChannels().map(({ label, href }) => ({ label, href })),
+        messages: history.slice(-10),
+      }),
+    });
+    clearTimeout(timer);
 
-  if (!response.ok) throw new Error(`chat request failed: ${response.status}`);
+    if (!response.ok) throw new Error(`chat request failed: ${response.status}`);
 
-  const data = await response.json();
-  if (!data || typeof data.reply !== "string") throw new Error("malformed assistant reply");
-  return { reply: data.reply, contactNext: Boolean(data.contact_next) };
+    const data = await response.json();
+    if (!data || typeof data.reply !== "string" || !data.reply.trim()) throw new Error("malformed assistant reply");
+    return { reply: data.reply.trim(), contactNext: Boolean(data.contact_next) };
+  } catch (error) {
+    // إيلا الـ AI وقف، كنجاوبو بالردود المحلية باش الشات ما يتعطلش
+    console.warn("AI endpoint failed, using local answers", error);
+    const last = history[history.length - 1];
+    return localAnswer(last ? last.content : "");
+  }
 }
 
 async function submit(text) {
