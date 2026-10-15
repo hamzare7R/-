@@ -277,10 +277,19 @@ async function requestReply() {
 
     if (!response.ok) throw new Error(`chat request failed: ${response.status}`);
 
-    const data = await response.json();
-    if (!data || typeof data.reply !== "string" || !data.reply.trim()) throw new Error("malformed assistant reply");
-    return { reply: data.reply.trim(), contactNext: Boolean(data.contact_next) };
-  } catch (error) {
+const data = await response.json();
+    
+    // قراءة الرد سواء جاء باسم reply أو response أو message
+    const replyText = data.reply || data.response || data.message;
+    
+    if (!replyText || typeof replyText !== "string") {
+      throw new Error("Invalid response format from AI worker");
+    }
+
+    return { 
+      reply: replyText.trim(), 
+      contactNext: Boolean(data.contact_next || data.contactNext) 
+    };  } catch (error) {
     // إيلا الـ AI وقف، كنجاوبو بالردود المحلية باش الشات ما يتعطلش
     console.warn("AI endpoint failed, using local answers", error);
     const last = history[history.length - 1];
