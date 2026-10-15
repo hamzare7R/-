@@ -297,8 +297,8 @@
               <div class="contact-links">
                 <a href="https://www.instagram.com/7r01h?stkn=MThweGR0MmlvaXY2Nw%3D%3D" target="_blank" rel="noreferrer">Instagram</a>
                 <a href="https://www.linkedin.com/in/hamza-reggaoui-7r01h" target="_blank" rel="noreferrer">LinkedIn</a>
-                <a href="https://khamsat.com/user/hamza7r"_blank rel="noreferrer">خمسات</a>
-                <a href="https://mostaql.com/u/Expert_Hamza_N1/portfolio"_blank rel="noreferrer">مستقل</a>
+                <a href="https://khamsat.com/user/hamza7r" target="_blank" rel="noreferrer">خمسات</a>
+                <a href="https://mostaql.com/u/Expert_Hamza_N1/portfolio" target="_blank" rel="noreferrer">مستقل</a>
                 <a href="mailto:hamza.reggaoui.design@gmail.com">contacthamzar7r@gmail.com</a>
               </div>
             </div>
@@ -340,11 +340,46 @@
       </footer>
     </div>
 
+    <div class="chat-widget" id="chatWidget">
+      <button class="chat-trigger" id="chatTrigger" type="button" aria-expanded="false" aria-controls="chatPanel">
+        <span class="chat-trigger-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        </span>
+        <span class="chat-trigger-text" id="chatTriggerText">مساعد حمزة</span>
+      </button>
+
+      <section class="chat-panel" id="chatPanel" role="dialog" aria-labelledby="chatTitle" hidden>
+        <header class="chat-header">
+          <img class="chat-avatar" src="images/HRb.png" alt="" />
+          <div class="chat-heading">
+            <strong id="chatTitle">مساعد حمزة</strong>
+            <span id="chatSubtitle">اسألني عن الخدمات، الأعمالي أو كيفاش تتواصل معايا.</span>
+          </div>
+          <button class="chat-collapse" id="chatCollapse" type="button" aria-label="إغلاق المحادثة">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </header>
+
+        <div class="chat-log" id="chatLog" role="log" aria-live="polite"></div>
+
+        <div class="chat-chips" id="chatChips"></div>
+
+        <form class="chat-form" id="chatForm">
+          <label class="chat-sr-only" id="chatInputLabel" for="chatInput">اكتب سؤالك</label>
+          <input class="chat-input" id="chatInput" type="text" autocomplete="off" maxlength="600" placeholder="اكتب سؤالك هنا..." />
+          <button class="btn btn-primary chat-send" type="submit">
+            <span id="chatSendLabel">إرسال</span>
+          </button>
+        </form>
+      </section>
+    </div>
+
     <div class="lightbox" id="lightbox" aria-hidden="true">
       <button class="close-lightbox" type="button" aria-label="Close gallery"></button>
       <img src="" alt="Project preview" id="lightboxImg" />
     </div>
 
     <script src="script.js"></script>
+    <script type="module" src="chat.js"></script>
   </body>
 </html>
