@@ -5,7 +5,7 @@
 // 2) حط الـ URL ديالو فـ CHAT_ENDPOINT تحت
 // 3) فعّل هاد الملف فـ index.html (موجودين راه مربوطين)
 
-const CHAT_ENDPOINT = "";
+   const CHAT_ENDPOINT = "https://hamza-chat.hamzareggaoui63.workers.dev";
 
 const chatCopy = {
   ar: {
