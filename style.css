@@ -950,12 +950,18 @@ body.light-mode .form-status.error {
   display: inline-flex;
 }
 
-.chat-widget.open .chat-trigger {
-  width: 50px;
+.chat-trigger {
+  width: 56px;
+  min-height: 56px;
   padding: 0;
 }
 
-.chat-widget.open .chat-trigger-text {
+.chat-trigger-text {
+  display: none;
+}
+
+/* خاصو يتخبى ملي كيكون hidden (display:flex كان كيلغي hidden) */
+.chat-panel[hidden] {
   display: none;
 }
 
@@ -978,6 +984,26 @@ body.light-mode .form-status.error {
   padding: 14px 16px;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.03);
+}
+
+.chat-avatar-btn {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 12px;
+  line-height: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.chat-avatar-btn:hover {
+  transform: scale(1.06);
+}
+
+.chat-avatar-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .chat-avatar {

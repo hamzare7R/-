@@ -10,12 +10,12 @@
  * المتغيرات (Settings → Variables في dashboard):
  *   AI_BASE_URL  = https://api.openai.com/v1   (أو https://api.groq.com/openai/v1)
  *   AI_MODEL     = gpt-4o-mini                 (أو llama-3.3-70b-versatile)
- *   CHAT_ALLOWED_ORIGINS = https://hamzare7r.github.io,https://reggaouihamza.com,http://localhost:5173
+ *   CHAT_ALLOWED_ORIGINS = https://7r01h-portfolio.vercel.app,http://localhost:5173
  */
 
 const DEFAULT_BASE_URL = "https://api.openai.com/v1";
 const DEFAULT_MODEL = "gpt-4o-mini";
-const DEFAULT_ORIGINS = "https://hamzare7r.github.io,http://localhost:5173,http://127.0.0.1:5173";
+const DEFAULT_ORIGINS = "https://7r01h-portfolio.vercel.app,https://hamzare7r.github.io,http://localhost:5173,http://127.0.0.1:5173";
 
 const MAX_BODY_BYTES = 12000;
 const MAX_TURNS = 10;
@@ -48,7 +48,7 @@ WORKSPACES WHERE HE SELLS SERVICES
 Khamsat and Mostaql (links are in the site's contact section), plus direct email contact.
 
 STRICT RULES
-- Reply in the SAME language the visitor wrote in. If they write Moroccan Darija (Arabic script or Latin/Arabizi), answer in friendly Darija.
+- Reply in the SAME language the visitor wrote in. Any Arabic message — including Moroccan Darija or Arabizi (Latin script) — must be answered in clear Modern Standard Arabic (الفصحى), never in dialect.
 - Keep answers short: 1-4 short sentences, plain text, no markdown headers, no bullet spam.
 - Never invent prices, deadlines, availability, client names or file formats. If asked, say Hamza confirms those directly after you contact him, and set contact_next to true.
 - Never invent facts beyond the knowledge above. If the question is out of scope, say it is better answered by Hamza himself and set contact_next to true.

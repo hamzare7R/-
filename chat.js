@@ -1,3 +1,5 @@
+(function () {
+"use strict";
 // AI chat assistant for the portfolio
 // 1) انشر worker/hamza-chat-worker.js على Cloudflare
 // 2) حط الـ URL ديالو فـ CHAT_ENDPOINT تحت
@@ -9,11 +11,12 @@ const chatCopy = {
   ar: {
     trigger: "مساعد حمزة",
     title: "مساعد حمزة",
-    subtitle: "اسألني عن الخدمات، الأعمالي أو كيفاش تتواصل معايا.",
+    subtitle: "اسألني عن الخدمات.",
     inputLabel: "اكتب سؤالك",
     placeholder: "اكتب سؤالك هنا...",
     send: "إرسال",
     close: "إغلاق المحادثة",
+    minimize: "تصغير المحادثة",
     welcome: "مرحبًا! أنا المساعد ديال حمزة. نقدر نجاوبك على الخدمات، الأعمالي، المهارات ولا كيفاش تتواصل معاه. شنو بغيتي تعرف؟",
     chips: ["شنو الخدمات اللي كيدير حمزة؟", "بشحون الخدمات؟", "وريني أعمالو", "بغيت نتواصل مع حمزة"],
     typing: "المساعد كيكتب...",
@@ -44,6 +47,7 @@ const chatCopy = {
     placeholder: "Type your question here...",
     send: "Send",
     close: "Close chat",
+    minimize: "Minimize chat",
     welcome: "Hi! I'm the assistant on Hamza's portfolio. I can help with his services, projects, skills, or how to contact him. What would you like to know?",
     chips: ["What does Hamza offer?", "How much does it cost?", "Show me his work", "I want to contact Hamza"],
     typing: "Assistant is typing...",
@@ -74,6 +78,7 @@ const chatCopy = {
     placeholder: "Frage hier eingeben...",
     send: "Senden",
     close: "Chat schließen",
+    minimize: "Chat minimieren",
     welcome: "Hallo! Ich bin der Assistent auf Hamzas Portfolio. Ich helfe bei Fragen zu Leistungen, Projekten, Fähigkeiten oder Kontakt. Was möchten Sie wissen?",
     chips: ["Was bietet Hamza an?", "Was kosten die Leistungen?", "Zeigen Sie mir die Projekte", "Ich möchte Hamza kontaktieren"],
     typing: "Assistent schreibt...",
@@ -102,18 +107,21 @@ const widget = document.getElementById("chatWidget");
 const trigger = document.getElementById("chatTrigger");
 const panel = document.getElementById("chatPanel");
 const collapse = document.getElementById("chatCollapse");
+const avatarBtn = document.getElementById("chatAvatarBtn");
 const log = document.getElementById("chatLog");
 const chipsBar = document.getElementById("chatChips");
 const form = document.getElementById("chatForm");
 const input = document.getElementById("chatInput");
 
+panel.setAttribute("dir", "rtl");
+
 const history = [];
 let busy = false;
 let lastChipsLang = null;
 
+// الشات دائمًا بالعربية، بغض النظر على لغة الموقع
 function lang() {
-  const value = document.documentElement.lang || "ar";
-  return chatCopy[value] ? value : "ar";
+  return "ar";
 }
 
 function copy() {
@@ -143,6 +151,7 @@ function applyCopy() {
   input.placeholder = t.placeholder;
   document.getElementById("chatSendLabel").textContent = t.send;
   collapse.setAttribute("aria-label", t.close);
+  avatarBtn.setAttribute("aria-label", t.minimize);
 }
 
 function renderChips() {
@@ -320,6 +329,7 @@ function close() {
 
 trigger.addEventListener("click", () => (panel.hidden ? open() : close()));
 collapse.addEventListener("click", close);
+avatarBtn.addEventListener("click", close);
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   submit(input.value);
@@ -329,11 +339,5 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !panel.hidden) close();
 });
 
-new MutationObserver(() => {
-  applyCopy();
-  if (panel.hidden || lastChipsLang === lang()) return;
-  renderChips();
-  lastChipsLang = lang();
-}).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
-
 applyCopy();
+})();
