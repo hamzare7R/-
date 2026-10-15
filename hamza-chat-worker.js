@@ -4,7 +4,7 @@
 // الإعداد: Workers & Pages > Worker > Settings > Variables and Secrets > Add > Secret: GEMINI_API_KEY
 // مفتاح الـ API كيبقى فالـ Worker فقط، عمرو ما يتحط فـ chat.js ولا فـ GitHub.
 
-const GEMINI_MODEL = "gemini-2.5-flash"; // شوف الموديلات المتاحة فحسابك فـ AI Studio وبدّل إيلا لزم
+const GEMINI_MODEL = "gemini-3.8-flash"; // تقدر تبدلو بدون تعديل الكود: زيد Variable سميتها GEMINI_MODEL
 const CF_MODEL = "@cf/meta/llama-3.1-8b-instruct";
 
 const ALLOWED_ORIGINS = [
@@ -33,8 +33,8 @@ RULES:
 
 const CONTACT_HINT = /(contact|email|mail|reach|hire|price|cost|quote|tarif|preis|kosten|تواصل|بريد|سعر|اسعار|أسعار|ثمن|بشحال|بشحون|نتواصل|نخدم|توظيف|عرض)/i;
 
-async function askGemini(apiKey, messages) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+async function askGemini(apiKey, model, messages) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
@@ -45,9 +45,8 @@ async function askGemini(apiKey, messages) {
         parts: [{ text: m.content }],
       })),
       generationConfig: {
-        maxOutputTokens: 400,
+        maxOutputTokens: 800,
         temperature: 0.6,
-        thinkingConfig: { thinkingBudget: 0 }, // جواب سريع وبلا استهلاك زايد
       },
     }),
   });
@@ -100,7 +99,7 @@ export default {
     try {
       let reply;
       if (env.GEMINI_API_KEY) {
-        reply = await askGemini(env.GEMINI_API_KEY, messages);
+        reply = await askGemini(env.GEMINI_API_KEY, env.GEMINI_MODEL || GEMINI_MODEL, messages);
       } else if (env.AI) {
         const result = await env.AI.run(CF_MODEL, {
           messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
@@ -116,7 +115,7 @@ export default {
       return json({ reply, contact_next: CONTACT_HINT.test(lastUser) }, 200, origin);
     } catch (err) {
       console.error(err && err.message);
-      return json({ error: "ai failed" }, 502, origin);
+      return json({ error: "ai failed", detail: String((err && err.message) || err) }, 502, origin);
     }
   },
 };
