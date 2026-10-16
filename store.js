@@ -145,6 +145,15 @@ const grid = document.getElementById("categoryGrid");
 const intro = document.getElementById("storeIntro");
 
 const state = { category: null, work: null, query: "", sort: "new", tags: new Set() };
+let lastHash = null;
+
+function scrollToStore() {
+  const section = root.closest("section") || root;
+  const header = document.querySelector(".site-header");
+  const offset = (header ? header.offsetHeight : 0) + 12;
+  const top = section.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+}
 
 function uiLang() {
   const value = document.documentElement.lang || "ar";
@@ -537,6 +546,10 @@ function renderWork() {
 }
 
 function render() {
+  const hash = window.location.hash;
+  const routeChanged = hash !== lastHash;
+  lastHash = hash;
+
   readRoute();
   const inStore = Boolean(state.category || state.work);
   grid.classList.toggle("off", inStore);
@@ -548,7 +561,7 @@ function render() {
   }
   if (state.work) renderWork();
   else if (state.category) renderStore();
-  window.scrollTo({ top: 0, behavior: "auto" });
+  if (routeChanged) scrollToStore();
 }
 
 window.addEventListener("hashchange", render);
