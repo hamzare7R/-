@@ -155,6 +155,58 @@ const translations = {
     "contact.sending": "Wird gesendet...",
     "contact.success": "Ihre Nachricht wurde gesendet. Ich melde mich bald.",
     "contact.error": "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie mir per E-Mail."
+  },
+  fr: {
+    "hero.eyebrow": "Graphiste & créateur de contenu digital",
+    "hero.title": "Hamza - Graphiste & créateur de contenu digital",
+    "hero.text": "J'associe la rigueur des opérations portuaires et d'échange commercial à Tanger Med à la créativité en identité visuelle, marketing digital et contenu visuel, pour créer des expériences visuelles professionnelles qui marquent et bâtissent la confiance.",
+    "hero.primaryBtn": "Voir mes projets",
+    "hero.secondaryBtn": "Me contacter",
+    "hero.meta1": "Expérience terrain portuaire",
+    "hero.meta2": "Designer freelance & créateur digital",
+    "hero.meta3": "Multilingue",
+    "hero.role": "Graphiste & créateur digital",
+    "hero.statYears": "Années d'expérience",
+    "hero.statProjects": "Projets",
+    "about.eyebrow": "À propos",
+    "about.title": "Un designer qui relie terrain opérationnel et créativité digitale.",
+    "about.paragraph1": "Je suis Hamza R., graphiste freelance et créateur de contenu digital. J'associe méthode pratique et sens artistique dans chaque projet. Mon expérience en environnement portuaire, comme Tanger Med et Eurogate, m'a donné le goût de l'organisation, de la précision et du travail sous pression, tandis que ma passion pour le design et le marketing me permet de construire des identités visuelles claires et attractives.",
+    "about.paragraph2": "J'ai aussi une formation technique en menuiserie aluminium, qui a affûté mon regard sur les éléments matériels et fonctionnels, et que j'applique aux interfaces et aux designs interactifs. Je continue d'apprendre l'allemand et de mettre à jour mes compétences en design et identité visuelle pour suivre le marché actuel.",
+    "services.eyebrow": "Services",
+    "services.title": "Des solutions de design complètes à chaque étape de votre marque.",
+    "services.card1.title": "Identité visuelle & logo",
+    "services.card1.text": "Identité visuelle complète, logos, systèmes graphiques et applications professionnelles en mockups 3D.",
+    "services.card2.title": "Interfaces & landing pages",
+    "services.card2.text": "Design d'interfaces modernes, landing pages efficaces et expérience utilisateur équilibrée entre beauté et lisibilité.",
+    "services.card3.title": "Publicités réseaux sociaux",
+    "services.card3.text": "Posts, stories, annonces et contenus prêts à publier sur les plateformes digitales.",
+    "services.card4.title": "Rédaction de CV & contenu marketing",
+    "services.card4.text": "CV professionnel, contenu marketing et messages visuels centrés sur la clarté et la distinction.",
+    "portfolio.eyebrow": "Portfolio",
+    "portfolio.title": "Les derniers projets et réalisations.",
+    "skills.eyebrow": "Compétences & outils",
+    "skills.title": "Design, terrain et langues au service des projets.",
+    "skills.text": "Je crée des solutions visuelles concrètes qui renforcent l'identité et l'expérience utilisateur, en équilibrant sens artistique, lisibilité et compréhension des environnements opérationnels.",
+    "skills.designTools": "Outils de design",
+    "skills.fieldSkills": "Compétences terrain & techniques",
+    "contact.eyebrow": "Contact",
+    "contact.title": "Construisons ensemble quelque chose de marquant.",
+    "contact.text": "Besoin d'une identité visuelle, de créations pour les réseaux sociaux ou d'une landing page claire et soignée ? Je peux transformer votre idée en expérience visuelle forte.",
+    "contact.name": "Nom",
+    "contact.email": "E-mail",
+    "contact.message": "Message",
+    "contact.submit": "Envoyer",
+    "contact.sent": "Envoyé",
+    "contact.namePlaceholder": "Saisissez votre nom",
+    "contact.messagePlaceholder": "Écrivez votre message...",
+    "contact.sending": "Envoi en cours...",
+    "contact.success": "Votre message a bien été envoyé. Je réponds rapidement.",
+    "contact.error": "Le message n'a pas pu être envoyé. Réessayez ou écrivez-moi directement par e-mail.",
+    "nav.about": "À propos",
+    "nav.services": "Services",
+    "nav.portfolio": "Projets",
+    "nav.skills": "Compétences",
+    "nav.contact": "Contact"
   }
 };
 
@@ -162,15 +214,12 @@ const body = document.body;
 const langButtons = document.querySelectorAll('.lang-btn');
 const elements = document.querySelectorAll('[data-i18n]');
 const navLinks = document.querySelectorAll('.main-nav a');
-const filterButtons = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
 const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
 const closeLightbox = document.querySelector('.close-lightbox');
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 
-const SUPPORTED_LANGS = ['ar', 'en', 'de'];
+const SUPPORTED_LANGS = ['ar', 'en', 'de', 'fr'];
 let formStatusKey = null;
 let formStatusIsError = false;
 
@@ -245,28 +294,6 @@ function setLanguage(lang) {
 
 langButtons.forEach((btn) => {
   btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-});
-
-filterButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const selected = button.dataset.filter;
-
-    filterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
-
-    portfolioItems.forEach((item) => {
-      const matches = selected === 'all' || item.dataset.category === selected;
-      item.classList.toggle('hidden', !matches);
-    });
-  });
-});
-
-portfolioItems.forEach((item) => {
-  item.addEventListener('click', () => {
-    const image = item.querySelector('img');
-    lightboxImg.src = image.src;
-    lightbox.classList.add('open');
-    lightbox.setAttribute('aria-hidden', 'false');
-  });
 });
 
 closeLightbox.addEventListener('click', () => {

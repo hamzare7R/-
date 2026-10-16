@@ -49,6 +49,8 @@
             <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
             <span class="switch-divider">/</span>
             <button class="lang-btn" type="button" data-lang="de" aria-pressed="false">DE</button>
+            <span class="switch-divider">/</span>
+            <button class="lang-btn" type="button" data-lang="fr" aria-pressed="false">FR</button>
           </div>
 
         
@@ -187,65 +189,9 @@
               <h2 data-i18n="portfolio.title">أحدث المشاريع والإنجازات.</h2>
             </div>
 
-            <div class="filter-bar reveal" aria-label="Portfolio filter buttons">
-              <button class="filter-btn active" data-filter="all" type="button">All</button>
-              <button class="filter-btn" data-filter="branding" type="button">Branding</button>
-              <button class="filter-btn" data-filter="social" type="button">Social Media</button>
-              <button class="filter-btn" data-filter="ui" type="button">UI / Landing</button>
-              <button class="filter-btn" data-filter="CVs" type="button">CVs</button>
-            </div>
-
-            <div class="portfolio-grid">
-              <article class="portfolio-item reveal" data-category="branding">
-                <img src="images/lgpdesign.jpeg" alt="Brand identity project" />
-                <div class="overlay">
-                  <span class="item-tag">Branding</span>
-                  <h3>Logo & Brand Identity</h3>
-                </div>
-              </article>
-
-              <article class="portfolio-item reveal" data-category="social">
-                <img src="images/post-ig.png" alt="Social media campaign project" />
-                <div class="overlay">
-                  <span class="item-tag">Social Media</span>
-                  <h3>Social Media Ad Pack</h3>
-                </div>
-              </article>
-
-              <article class="portfolio-item reveal" data-category="ui">
-                <img src="images/landing-pages.png" alt="Landing page project" />
-                <div class="overlay">
-                  <span class="item-tag">UI / Landing</span>
-                  <h3>Landing Page Design</h3>
-                </div>
-              </article>
-
-              <article class="portfolio-item reveal" data-category="branding">
-                <img src="images/logo-design.png" alt="Brand mockup project" />
-                <div class="overlay">
-                  <span class="item-tag">Branding</span>
-                  <h3>3D Mockups & Stationery</h3>
-                </div>
-              </article>
-
-              <article class="portfolio-item reveal" data-category="CVs">
-                <img src="images/CVs-mokup.png" alt="Social content design project" />           
-                <div class="overlay">
-                  <span class="item-tag">CVs</span>
-                  <h3>Career Blueprint</h3>
-                </div>               
-              </article>
-
-              <article class="portfolio-item reveal" data-category="branding">
-                <img src="images/cards-design.jpeg" alt="Product design project" />
-                <div class="overlay">
-                  <span class="item-tag">Branding / Design</span>
-                  <h3>Business Card</h3>
-                </div>
-              </article>
-
-            
-            </div>
+            <p class="store-intro" id="storeIntro">اختر قسمًا لعرض كل الأعمال المرتبطة به مع الوصف و خطوات الإنجاز.</p>
+            <div class="category-grid" id="categoryGrid"></div>
+            <div class="store-root" id="storeRoot"></div>
           </div>
         </section>
 
@@ -277,7 +223,7 @@
                   <span>Port Operations</span>
                   <span>Container Inspection</span>
                   <span>Multilingual</span>
-                  <span>AR / EN / DE</span>
+                  <span>AR / EN / DE / FR</span>
                 </div>
               </div>
             </div>
@@ -299,7 +245,7 @@
                 <a href="https://www.linkedin.com/in/hamza-reggaoui-7r01h" target="_blank" rel="noreferrer">LinkedIn</a>
                 <a href="https://khamsat.com/user/hamza7r" target="_blank" rel="noreferrer">خمسات</a>
                 <a href="https://mostaql.com/u/Expert_Hamza_N1/portfolio" target="_blank" rel="noreferrer">مستقل</a>
-                <a href="mailto:hamza.reggaoui.design@gmail.com">contacthamzar7r@gmail.com</a>
+                <a href="mailto:hamzareggaoui63@gmail.com">hamzareggaoui63@gmail.com</a>
               </div>
             </div>
 
@@ -355,7 +301,7 @@
           </button>
           <div class="chat-heading">
             <strong id="chatTitle">مساعد حمزة</strong>
-            <span id="chatSubtitle">اسألني عن الخدمات، الأعمالي أو كيفاش تتواصل معايا.</span>
+            <span id="chatSubtitle">اسألني عن الخدمات، أو المشاريع، أو طريقة التواصل مع حمزة.</span>
           </div>
           <button class="chat-collapse" id="chatCollapse" type="button" aria-label="إغلاق المحادثة">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -382,6 +328,7 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="chat.js"></script>
+    <script type="module" src="chat.js"></script>
+    <script type="module" src="store.js"></script>
   </body>
 </html>
