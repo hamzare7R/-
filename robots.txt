@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Sitemap: https://7r01h-portfolio.vercel.app/sitemap.xml

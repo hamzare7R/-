@@ -1,0 +1,198 @@
+# Decap CMS config. Edits content/*.json in your GitHub repo; Vercel then rebuilds the site.
+# BEFORE USE: replace YOUR_GITHUB_USER/YOUR_REPO and base_url (see DEPLOY.md, step "Admin").
+backend:
+  name: github
+  repo: YOUR_GITHUB_USER/YOUR_REPO
+  branch: main
+  base_url: https://YOUR-OAUTH-WORKER.workers.dev
+media_folder: images
+public_folder: /images
+locale: ar
+collections:
+  - name: content
+    label: "المحتوى"
+    files:
+      - name: projects
+        label: "المشاريع"
+        file: content/projects.json
+        format: json
+        fields:
+          - label: "المشاريع"
+            name: projects
+            widget: list
+            label_singular: "مشروع"
+            summary: "{{fields.title.en}}"
+            fields:
+              - {label: "Slug (رابط المشروع، حروف إنجليزية بلا مسافات)", name: slug, widget: string}
+              - {label: "القسم (id)", name: category, widget: string, hint: "branding / social / ui / cvs"}
+              - {label: "الحالة", name: status, widget: select, options: [published, draft], default: published}
+              - {label: "مميز", name: featured, widget: boolean, default: false}
+              - {label: "تاريخ الإنجاز (YYYY-MM)", name: date, widget: string, required: false}
+              - {label: "حالة المشروع", name: projectStatus, widget: select, options: [completed, inProgress], default: completed, required: false}
+              - label: "العنوان"
+                name: title
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: string, required: false}
+                  - {label: "English", name: en, widget: string, required: true}
+                  - {label: "Deutsch", name: de, widget: string, required: false}
+                  - {label: "Français", name: fr, widget: string, required: false}
+              - label: "نوع العمل"
+                name: type
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: string, required: false}
+                  - {label: "English", name: en, widget: string, required: false}
+                  - {label: "Deutsch", name: de, widget: string, required: false}
+                  - {label: "Français", name: fr, widget: string, required: false}
+              - label: "وصف قصير"
+                name: summary
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: text, required: false}
+                  - {label: "English", name: en, widget: text, required: false}
+                  - {label: "Deutsch", name: de, widget: text, required: false}
+                  - {label: "Français", name: fr, widget: text, required: false}
+              - label: "نظرة عامة (فقرات)"
+                name: overview
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "English", name: en, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "Deutsch", name: de, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "Français", name: fr, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+              - label: "التحدي"
+                name: problem
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: text, required: false}
+                  - {label: "English", name: en, widget: text, required: false}
+                  - {label: "Deutsch", name: de, widget: text, required: false}
+                  - {label: "Français", name: fr, widget: text, required: false}
+              - label: "الأهداف"
+                name: objectives
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "English", name: en, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "Deutsch", name: de, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "Français", name: fr, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+              - label: "الجمهور المستهدف"
+                name: audience
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: text, required: false}
+                  - {label: "English", name: en, widget: text, required: false}
+                  - {label: "Deutsch", name: de, widget: text, required: false}
+                  - {label: "Français", name: fr, widget: text, required: false}
+              - label: "النتيجة النهائية"
+                name: results
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "English", name: en, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "Deutsch", name: de, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+                  - {label: "Français", name: fr, widget: list, field: {label: "نص", name: item, widget: text}, required: false}
+              - {label: "الصورة الرئيسية", name: cover, widget: image}
+              - label: "صور إضافية"
+                name: images
+                widget: list
+                required: false
+                field: {label: "صورة", name: image, widget: image}
+              - label: "الأدوات المستعملة"
+                name: tools
+                widget: list
+                required: false
+                field: {label: "أداة", name: tool, widget: string}
+              - label: "مراحل الإنجاز"
+                name: steps
+                widget: list
+                required: false
+                fields:
+                  - label: "عنوان المرحلة"
+                    name: title
+                    widget: object
+                    collapsed: true
+                    required: false
+                    fields:
+                      - {label: "العربية", name: ar, widget: string, required: false}
+                      - {label: "English", name: en, widget: string, required: false}
+                      - {label: "Deutsch", name: de, widget: string, required: false}
+                      - {label: "Français", name: fr, widget: string, required: false}
+                  - label: "شرح المرحلة"
+                    name: text
+                    widget: object
+                    collapsed: true
+                    required: false
+                    fields:
+                      - {label: "العربية", name: ar, widget: text, required: false}
+                      - {label: "English", name: en, widget: text, required: false}
+                      - {label: "Deutsch", name: de, widget: text, required: false}
+                      - {label: "Français", name: fr, widget: text, required: false}
+                  - label: "صور المرحلة"
+                    name: images
+                    widget: list
+                    required: false
+                    field: {label: "صورة", name: image, widget: image}
+              - label: "قبل / بعد (اختياري)"
+                name: beforeAfter
+                widget: object
+                required: false
+                fields:
+                  - {label: "قبل", name: before, widget: image, required: false}
+                  - {label: "بعد", name: after, widget: image, required: false}
+              - label: "مشاريع مرتبطة (slugs)"
+                name: related
+                widget: list
+                required: false
+                field: {label: "slug", name: slug, widget: string}
+      - name: categories
+        label: "الأقسام"
+        file: content/categories.json
+        format: json
+        fields:
+          - label: "الأقسام"
+            name: categories
+            widget: list
+            label_singular: "قسم"
+            summary: "{{fields.title.en}}"
+            fields:
+              - {label: "id (حروف إنجليزية صغيرة)", name: id, widget: string}
+              - {label: "الترتيب", name: order, widget: number, value_type: int}
+              - {label: "صورة الغلاف", name: cover, widget: image}
+              - label: "اسم القسم"
+                name: title
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: string, required: false}
+                  - {label: "English", name: en, widget: string, required: true}
+                  - {label: "Deutsch", name: de, widget: string, required: false}
+                  - {label: "Français", name: fr, widget: string, required: false}
+              - label: "وصف القسم"
+                name: description
+                widget: object
+                collapsed: true
+                required: false
+                fields:
+                  - {label: "العربية", name: ar, widget: text, required: false}
+                  - {label: "English", name: en, widget: text, required: false}
+                  - {label: "Deutsch", name: de, widget: text, required: false}
+                  - {label: "Français", name: fr, widget: text, required: false}

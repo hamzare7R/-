@@ -1,0 +1,6 @@
+{
+  "name": "reggaoui-hamza-portfolio",
+  "private": true,
+  "scripts": { "build": "node build.js" },
+  "engines": { "node": ">=18" }
+}

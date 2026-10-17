@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "id": "branding", "order": 1, "cover": "images/logo-design.png",
+      "title": {"ar": "الهوية البصرية", "en": "Branding", "de": "Branding", "fr": "Identité visuelle"},
+      "description": {
+        "ar": "شعارات، هويات بصرية، بطاقات أعمال وتطبيقات احترافية عبر Mockups ثلاثية الأبعاد.",
+        "en": "Logos, visual identities, business cards and professional applications through 3D mockups.",
+        "de": "Logos, visuelle Identitäten, Visitenkarten und professionelle Anwendungen als 3D-Mockups.",
+        "fr": "Logos, identités visuelles, cartes de visite et déclinaisons professionnelles en mockups 3D."
+      }
+    },
+    {
+      "id": "social", "order": 2, "cover": "images/post-ig.png",
+      "title": {"ar": "السوشيال ميديا", "en": "Social Media", "de": "Social Media", "fr": "Réseaux sociaux"},
+      "description": {
+        "ar": "منشورات، ستوريات وإعلانات جاهزة للنشر عبر المنصات الرقمية.",
+        "en": "Posts, stories and ads ready to publish across digital platforms.",
+        "de": "Posts, Stories und Anzeigen, bereit für digitale Plattformen.",
+        "fr": "Publications, stories et annonces prêtes à être diffusées sur les plateformes numériques."
+      }
+    },
+    {
+      "id": "ui", "order": 3, "cover": "images/landing-pages.png",
+      "title": {"ar": "واجهات وصفحات هبوط", "en": "UI / Landing Pages", "de": "UI & Landingpages", "fr": "UI / Pages d'atterrissage"},
+      "description": {
+        "ar": "واجهات حديثة وصفحات هبوط فعّالة بتجربة مستخدم متوازنة بين الجمال والوضوح.",
+        "en": "Modern interfaces and effective landing pages with a user experience that balances beauty and clarity.",
+        "de": "Moderne Interfaces und wirksame Landingpages mit einem Nutzererlebnis zwischen Ästhetik und Klarheit.",
+        "fr": "Interfaces modernes et pages d'atterrissage efficaces, pour une expérience qui allie beauté et clarté."
+      }
+    },
+    {
+      "id": "cvs", "order": 4, "cover": "images/CVs-mokup.png",
+      "title": {"ar": "السير الذاتية", "en": "CVs", "de": "Lebensläufe", "fr": "CV"},
+      "description": {
+        "ar": "سير ذاتية احترافية تركز على التميز والوضوح.",
+        "en": "Professional CVs focused on distinction and clarity.",
+        "de": "Professionelle Lebensläufe mit Fokus auf Klarheit und Wirkung.",
+        "fr": "CV professionnels axés sur la clarté et la différenciation."
+      }
+    }
+  ]
+}

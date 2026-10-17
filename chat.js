@@ -118,11 +118,6 @@ panel.setAttribute("dir", "rtl");
 
 const history = [];
 let busy = false;
-let userMessages = 0;
-const MAX_MESSAGES_PER_SESSION = 20; // يحمي الحد اليومي المجاني من الإفراط
-const MIN_GAP_MS = 1500;           // فاصل بسيط بين الرسائل
-let lastSentAt = 0;
-input.maxLength = 300;
 let lastChipsLang = null;
 
 // الشات دائمًا بالعربية، بغض النظر على لغة الموقع
@@ -221,7 +216,9 @@ function contactCard() {
   formBtn.type = "button";
   formBtn.textContent = t.openForm;
   formBtn.addEventListener("click", () => {
-    document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "start" });
+    const target = document.getElementById("contact");
+    if (!target) { window.location.href = "/#contact"; return; }
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
     setTimeout(() => document.getElementById("name").focus(), 600);
   });
   actions.appendChild(formBtn);
@@ -265,49 +262,46 @@ async function requestReply() {
     return localAnswer(last ? last.content : "");
   }
 
-  // كنعاودو المحاولة مرة وحدة، وإيلا بقا الفشل كيبان الخطأ الحقيقي (ماشي رد مكرر)
-  let lastError;
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 25000);
-      const response = await fetch(CHAT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        signal: controller.signal,
-        body: JSON.stringify({
-          lang: lang(),
-          contacts: contactChannels().map(({ label, href }) => ({ label, href })),
-          messages: history.slice(-10),
-        }),
-      });
-      clearTimeout(timer);
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
+    const response = await fetch(CHAT_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        lang: lang(),
+        contacts: contactChannels().map(({ label, href }) => ({ label, href })),
+        messages: history.slice(-10),
+      }),
+    });
+    clearTimeout(timer);
 
-      if (!response.ok) throw new Error(`chat request failed: ${response.status}`);
+    if (!response.ok) throw new Error(`chat request failed: ${response.status}`);
 
-      const data = await response.json();
-      if (!data || typeof data.reply !== "string" || !data.reply.trim()) throw new Error("malformed assistant reply");
-      return { reply: data.reply.trim(), contactNext: Boolean(data.contact_next) };
-    } catch (error) {
-      lastError = error;
-      console.warn("AI endpoint failed", error);
+const data = await response.json();
+    
+    // قراءة الرد سواء جاء باسم reply أو response أو message
+    const replyText = data.reply || data.response || data.message;
+    
+    if (!replyText || typeof replyText !== "string") {
+      throw new Error("Invalid response format from AI worker");
     }
+
+    return { 
+      reply: replyText.trim(), 
+      contactNext: Boolean(data.contact_next || data.contactNext) 
+    };  } catch (error) {
+    // إيلا الـ AI وقف، كنجاوبو بالردود المحلية باش الشات ما يتعطلش
+    console.warn("AI endpoint failed, using local answers", error);
+    const last = history[history.length - 1];
+    return localAnswer(last ? last.content : "");
   }
-  throw lastError;
 }
 
 async function submit(text) {
   const message = (text || "").trim();
   if (!message || busy) return;
-  if (Date.now() - lastSentAt < MIN_GAP_MS) return;
-
-  if (userMessages >= MAX_MESSAGES_PER_SESSION) {
-    bubble("bot", "وصلنا للحد الأقصى ديال الرسائل فهاد الجلسة. لمتابعة النقاش، تواصل مباشرة مع حمزة:");
-    contactCard();
-    return;
-  }
-  userMessages++;
-  lastSentAt = Date.now();
 
   busy = true;
   form.querySelector(".chat-send").disabled = true;

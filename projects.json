@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "slug": "logo-brand-identity", "category": "branding", "status": "published", "featured": false, "date": "",
+      "title": {"en": "Logo & Brand Identity"},
+      "type": {"ar": "شعار وهوية بصرية", "en": "Logo & identity", "de": "Logo & Identität", "fr": "Logo & identité"},
+      "summary": {"ar": "تصميم شعار وهوية بصرية متكاملة.", "en": "Logo and complete visual identity design.", "de": "Logo und vollständige visuelle Identität.", "fr": "Conception d'un logo et d'une identité visuelle complète."},
+      "cover": "images/lgpdesign.jpeg", "images": [], "tools": [], "steps": []
+    },
+    {
+      "slug": "social-media-ad-pack", "category": "social", "status": "published", "featured": false, "date": "",
+      "title": {"en": "Social Media Ad Pack"},
+      "type": {"ar": "حملة سوشيال ميديا", "en": "Social media campaign", "de": "Social-Media-Kampagne", "fr": "Campagne réseaux sociaux"},
+      "summary": {"ar": "منشورات وإعلانات جاهزة للنشر عبر المنصات الرقمية.", "en": "Posts and ads ready to publish across digital platforms.", "de": "Veröffentlichungsfertige Posts und Anzeigen für digitale Plattformen.", "fr": "Publications et annonces prêtes à être diffusées sur les plateformes numériques."},
+      "cover": "images/post-ig.png", "images": [], "tools": [], "steps": []
+    },
+    {
+      "slug": "landing-page-design", "category": "ui", "status": "published", "featured": false, "date": "",
+      "title": {"en": "Landing Page Design"},
+      "type": {"ar": "صفحة هبوط", "en": "Landing page", "de": "Landingpage", "fr": "Page d'atterrissage"},
+      "summary": {"ar": "تصميم صفحة هبوط واضحة تجمع بين الجمال وسهولة الاستخدام.", "en": "A clear landing page design that balances beauty and ease of use.", "de": "Klares Landingpage-Design zwischen Ästhetik und Bedienbarkeit.", "fr": "Une page d'atterrissage claire, entre esthétique et facilité d'usage."},
+      "cover": "images/landing-pages.png", "images": [], "tools": [], "steps": []
+    },
+    {
+      "slug": "3d-mockups-stationery", "category": "branding", "status": "published", "featured": false, "date": "",
+      "title": {"en": "3D Mockups & Stationery"},
+      "type": {"ar": "موك أب وقرطاسية", "en": "Mockups & stationery", "de": "Mockups & Geschäftsausstattung", "fr": "Mockups & papeterie"},
+      "summary": {"ar": "عرض احترافي للهوية البصرية عبر Mockups ثلاثية الأبعاد وقرطاسية.", "en": "Professional presentation of a brand identity through 3D mockups and stationery.", "de": "Professionelle Präsentation einer Markenidentität über 3D-Mockups und Geschäftsausstattung.", "fr": "Présentation professionnelle d'une identité visuelle via des mockups 3D et de la papeterie."},
+      "cover": "images/logo-design.png", "images": [], "tools": [], "steps": []
+    },
+    {
+      "slug": "career-blueprint", "category": "cvs", "status": "published", "featured": false, "date": "",
+      "title": {"en": "Career Blueprint"},
+      "type": {"ar": "تصميم سيرة ذاتية", "en": "CV design", "de": "Lebenslauf-Design", "fr": "Design de CV"},
+      "summary": {"ar": "سيرة ذاتية احترافية تركز على التميز والوضوح.", "en": "A professional CV focused on distinction and clarity.", "de": "Ein professioneller Lebenslauf mit Fokus auf Klarheit und Wirkung.", "fr": "Un CV professionnel axé sur la clarté et la différenciation."},
+      "cover": "images/CVs-mokup.png", "images": [], "tools": [], "steps": []
+    },
+    {
+      "slug": "business-card", "category": "branding", "status": "published", "featured": false, "date": "",
+      "title": {"en": "Business Card"},
+      "type": {"ar": "بطاقة أعمال", "en": "Business card", "de": "Visitenkarte", "fr": "Carte de visite"},
+      "summary": {"ar": "تصميم بطاقة أعمال أنيقة تعكس هوية العلامة.", "en": "A business card design that reflects the brand's identity.", "de": "Ein Visitenkarten-Design, das die Markenidentität widerspiegelt.", "fr": "Une carte de visite qui reflète l'identité de la marque."},
+      "cover": "images/cards-design.jpeg", "images": [], "tools": [], "steps": []
+    }
+  ]
+}
